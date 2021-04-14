@@ -29,7 +29,13 @@ spring bean的生命周期
 初始化，调用自定义的初始化方法。
 获取最终的 Bean，如果是 FactoryBean 需要调用 getObject 方法，如果需要类型转换调用 TypeConverter 进行转化。
 
+系统维护
 
+1 (日志)文件下载，需考虑追朔符../
+2 防止sql 注入，提前过滤一下
+3 防止打印sql信息，规范代码写法，try catch 
+4 校验码及时清理
+5 退出登录清理会话信息
 
 spring 是如何解决循环依赖的
 理解1
@@ -65,10 +71,33 @@ BeanFactory是个Factory，也就是IOC容器或对象工厂，FactoryBean是个
  B 树就可以了, B 树不是二叉树, B 树是一种多叉搜索树, 每一个节点都有多个元素. 这样, 对于全部节点固定情况下, B 树肯定比红黑树要浅了, 这样, 潜在的最大 IO 次数一定少了啊. 所以 B 树就应用在数据库的场景下. 
  同理, 如果你的搜索涉及到多种速度不一的存储介质, 也是可以考虑 B 树的. 
 
+Eureka工作流程：
+
+Eureka Server 启动成功，等待服务端注册。在启动过程中如果配置了集群，集群之间定时通过 Replicate 同步注册表，每个 Eureka Server 都存在独立完整的服务注册表信息
+Eureka Client 启动时根据配置的 Eureka Server 地址去注册中心注册服务
+Eureka Client 会每 30s 向 Eureka Server 发送一次心跳请求，证明客户端服务正常
+当 Eureka Server 90s 内没有收到 Eureka Client 的心跳，注册中心则认为该节点失效，会注销该实例
+单位时间内 Eureka Server 统计到有大量的 Eureka Client 没有上送心跳，则认为可能为网络异常，进入自我保护机制，不再剔除没有上送心跳的客户端
+当 Eureka Client 心跳请求恢复正常之后，Eureka Server 自动退出自我保护模式
+Eureka Client 定时全量或者增量从注册中心获取服务注册表，并且将获取到的信息缓存到本地
+服务调用时，Eureka Client 会先从本地缓存找寻调取的服务。如果获取不到，先从注册中心刷新注册表，再同步到本地缓存
+Eureka Client 获取到目标服务器信息，发起服务调用
+Eureka Client 程序关闭时向 Eureka Server 发送取消请求，Eureka Server 将实例从注册表中删除
+
+分布式系统CAP
+Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性）
+三选2  及其证明：假如某个机器挂了，那么要么读非一致性的数据，要么等待获取最新的
+Eureka 保证AP性
 
 
 
+todo list 
 
+spring bean的生命周期
+spring 是如何解决循环依赖的
+springboot 自动装配原理
+ReentrantLock 和 synchronize 底层原理
+beanFactory与factoryBean的区别
 
 
 

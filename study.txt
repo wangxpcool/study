@@ -50,6 +50,21 @@ spring 是如何解决循环依赖的
 用字段/setter注入的就可以循环依赖
 有时成功有时失败是由于操作系统不同导致读取jar时文件顺序不一样，最后实例创建循序不一样
 
+Spring mvc 工作原理[Top]
+流程说明（重要）：
+
+一个http请求发送过来先经过Servlet的filter进行过滤，之后进入MVC流程
+
+客户端（浏览器）发送请求，直接请求到 DispatcherServlet。
+DispatcherServlet 根据请求信息调用 HandlerMapping，解析请求对应的 Handler。
+解析到对应的 Handler（也就是我们平常说的 Controller 控制器）后，开始由 HandlerAdapter 适配器处理。
+HandlerAdapter 会根据 Handler 来调用真正的处理器来处理请求，并处理相应的业务逻辑。调用handler的时候，如果有继承HandlerInterceptor接口，就对应拦截处理。
+处理器处理完业务后，会返回一个 ModelAndView 对象，Model 是返回的数据对象，View 是个逻辑上的 View。
+ViewResolver 会根据逻辑 View 查找实际的 View。
+DispatcherServlet 把返回的 Model 传给 View Resolver（视图渲染）。
+把 View 返回给请求者（浏览器）
+
+
 springboot 自动装配原理
 
 ReentrantLock 和 synchronize 底层原理
@@ -98,7 +113,6 @@ spring 是如何解决循环依赖的
 springboot 自动装配原理
 ReentrantLock 和 synchronize 底层原理
 beanFactory与factoryBean的区别
-
 
 
 

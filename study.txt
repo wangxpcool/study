@@ -199,7 +199,7 @@ todo list
 springboot 自动装配原理
 merge into 
 
-
+服务选举机制。。。
 
 
 

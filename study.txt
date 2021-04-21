@@ -193,6 +193,22 @@ CLH队列（这个以后再学习吧）
 GC Roots都有哪些： 1. 虚拟机栈中的引用的对象 2. 方法区中静态属性引用的对象，常量引用的对象 3. 本地方法栈中JNI（即一般说的Native方法）引用的对象。
 
 
+quartz 基本原理
+
+Quartz核心要素有Scheduler、Trigger、Job、JobDetail，其中trigger和job、jobDetail为元数据，而Scheduler为实际进行调度的控制器。
+
+Trigger
+Trigger用于定义调度任务的时间规则，在Quartz中主要有四种类型的Trigger：SimpleTrigger、CronTrigger、DataIntervalTrigger和NthIncludedTrigger。
+
+Job&Jodetail
+Quartz将任务分为Job、JobDetail两部分，其中Job用来定义任务的执行逻辑，而JobDetail用来描述Job的定义（例如Job接口的实现类以及其他相关的静态信息）。对Quartz而言，主要有两种类型的Job，StateLessJob、StateFulJob
+
+Scheduler
+实际执行调度逻辑的控制器，Quartz提供了DirectSchedulerFactory和StdSchedulerFactory等工厂类，用于支持Scheduler相关对象的产生。
+
+
+什么时候拆微服务，按功能，按资源消耗。。。。。。
+
 todo list 
 
 juc

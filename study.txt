@@ -216,6 +216,7 @@ sql 优化
 索引问题
 redis 实现分布式锁 主从，哨兵，集群
 todo list 
+分布式事务 我记得有分段式提交等
 
 springboot 自动装配原理
 merge into 

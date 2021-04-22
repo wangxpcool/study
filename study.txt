@@ -220,6 +220,12 @@ DENSE_RANK()  例 1 1 2
 
 NTILE()
 对数据进行按指定数量分区  例 NTILE(2)  =  1 1 2 2 3 3 没用过
+
+sql 优化
+like xx% 走索引，其他like 均不走索引
+垂直分表？水平   oracle垂直分区和水平分区？？？
+索引的类型
+
 todo list 
 
 juc

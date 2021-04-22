@@ -209,6 +209,17 @@ Scheduler
 
 什么时候拆微服务，按功能，按资源消耗。。。。。。
 
+sql:
+row_number() over (partition by class order by score desc) as rank where rank = 1
+取每门课最高成绩的data 
+例  1 2 3
+
+RANK()
+定义：RANK()函数，顾名思义排名函数，可以对某一个字段进行排名，例：1 1 3  
+DENSE_RANK()  例 1 1 2 
+
+NTILE()
+对数据进行按指定数量分区  例 NTILE(2)  =  1 1 2 2 3 3 没用过
 todo list 
 
 juc

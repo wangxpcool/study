@@ -25,6 +25,74 @@ ReentrantLock调用锁的lockInterruptibly()方法，
 利用中断标识，可以调用 thread.interrupt()方法，在线程的 run 方法内部可以根据 thread.isInterrupted()的值来优雅的终止线程。
 
 
+线程池的队列 五种[Top]
+Executors.newFixedThreadPool()：new LinkedBlockingQueue()
+Executors.newSingleThreadExecutor()：new LinkedBlockingQueue()
+以上两种创建的方式不推荐，因为使用了linkedBlockingQueue的无界队列，会导致最大线程数以及多余核心的keepalive的参数失效。
+而因为无界队列的关系，当任务过多会导致oom
+Executors.newCachedThreadPool()：new SynchronousQueue()
+不推荐用newCacheThreadPool的原因是因为最大线程数设置为Integer.MAX_VALUE,如果主线程提交任务的速度高于 maximumPool 中线程处理任务的速度时，会耗尽CUP及内存。
+Executors.newScheduledThreadPool(): new DelayedWorkQueue() 中封装了一个 PriorityQueue
+任务队列 DelayedWorkQueue 封装了一个 PriorityQueue，PriorityQueue 会对队列中的任务进行排序，执行所需时间短的放在前面先被执行(ScheduledFutureTask 的 time 变量小的先执行)，如果执行所需时间相同则先提交的任务将被先执行(ScheduledFutureTask 的 squenceNumber 变量小的先执行)。
+队列原理与 DelayQueue 基本一致
+Executors.newWorkStealingPool()：内部会构建ForkJoinPool，利用Work-Stealing算法，并行地处理任务，不保证处理顺序。
+工作窃取算法：工作窃取(work-stealing)算法是指某个线程从其他队列里窃取任务来执行。一个大任务分割为若干个互不依赖的子任务，为了减少线程间的竞争，把这些子任务分别放到不同的队列里，并未每个队列创建一个单独的线程来执行队列里的任务，线程和队列一一对应。比如线程1负责处理1队列里的任务，2线程负责2队列的。但是有的线程会先把自己队列里的任务干完，而其他线程对应的队列里还有任务待处理。干完活的线程与其等着，不如帮其他线程干活，于是它就去其他线程的队列里窃取一个任务来执行。默认从其他队列的队尾开始窃取任务执行。
+思想为：充分利用线程进行并行计算，减少线程间的竞争。在某些情况下还是会存在竞争，比如双端队列里只有一个任务时。并且该算法会消耗更多的系统资源， 比如创建多个线程和多个双端队列。
+return new ForkJoinPool
+       (Runtime.getRuntime().availableProcessors(),  //默认使用的是硬件的cpu数目
+         ForkJoinPool.defaultForkJoinWorkerThreadFactory,
+        null, true);
+
+
+SynchronousQueue（CachedThreadPool） 类似交警只是指挥车辆，并不管理车辆
+SynchronousQueue没有容量，是无缓冲等待队列，是一个不存储元素的阻塞队列，会直接将任务交给消费者，必须等队列中的添加元素被消费后才能继续添加新的元素。超出直接corePoolSize个任务，直接创建新的线程来执行任务，直到(corePoolSize＋新建线程)> maximumPoolSize。不是核心线程就是新建线程。
+LinkedBlockingQueue（single，fixed）类似小仓库，暂时存储任务，待系统有空的时候再取出执行
+BlockingQueue是双缓冲队列。BlockingQueue内部使用两条队列，允许两个线程同时向队列一个存储，一个取出操作。在保证并发安全的同时，提高了队列的存取效率。LinkedBlockingQueue是一个无界缓存等待队列。当前执行的线程数量达到corePoolSize的数量时，剩余的元素会在阻塞队列里等待。（所以在使用此阻塞队列时maximumPoolSizes就相当于无效了），每个线程完全独立于其他线程。生产者和消费者使用独立的锁来控制数据的同步，即在高并发的情况下可以并行操作队列中的数据。
+ArrayBlockingQueue
+ArrayBlockingQueue是一个有界缓存等待队列，可以指定缓存队列的大小，当正在执行的线程数等于corePoolSize时，多余的元素缓存在ArrayBlockingQueue队列中等待有空闲的线程时继续执行，当ArrayBlockingQueue已满时，加入ArrayBlockingQueue失败，会开启新的线程去执行，当线程数已经达到最大的maximumPoolSizes时，再有新的元素尝试加入ArrayBlockingQueue时会报错
+
+
+
+
+
+线程池相关方法[Top]
+execute() vs submit()
+
+execute()方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功与否；
+submit()方法用于提交需要返回值的任务。线程池会返回一个 Future 类型的对象，通过这个 Future 对象可以判断任务是否执行成功，
+shutdown()VS shutdownNow()
+
+shutdown（） :关闭线程池，线程池的状态变为 SHUTDOWN。线程池不再接受新任务了，但是队列里的任务得执行完毕。
+shutdownNow（） :关闭线程池，线程的状态变为 STOP。线程池会终止当前正在运行的任务，并停止处理排队的任务并返回正在等待执行的 List。
+isTerminated() VS isShutdown()
+
+isShutDown 当调用 shutdown() 方法后返回为 true。
+isTerminated 当调用 shutdown() 方法后，并且所有提交的任务完成后返回为 true
+
+
+
+ThreadLocal [Top]
+Thread 类存储了ThreadLocal.ThreadLocalMap 对象 ：ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
+
+key key视作ThreadLocal，value为代码中放入的值（实际上key并不是ThreadLocal本身，而是它的一个弱引用WeakReference）.
+ThreadLocalMap的key 为每个新建的ThreadLocal private void set(ThreadLocal<?> key, Object value) { } ThreadMap的实现类似于HashMap，不过其数据结构仅使用数组，定义一个Entry的类，key为 WeakReference引用的ThreadLocal，value为存入的value。
+key的hash计算：使用黄金分割数*AtomInteger计算，再根据容量确定索引位置。每次新增一个元素，AtomInteger都自动加一。
+因为map的key都是threadLocal，所以在不set或remove元素的时候，每次get都是同一个元素的值。
+set元素逻辑：
+
+进过hash定位到数组索引位置，如果位置无元素直接设值。
+如果存在元素对比当前Entry key的hash 是否一致，一致则直接替换元素。
+若不一致，向后一次找一个空位。
+TheadMap的key为weakReference包裹的threadLocal 因此会存在被jvm回收的情况
+
+在set的时如果遇到Entry是被回收的值，则触发探测性清理。
+
+探测性清理：以当前Entry 向后迭代查找，遇到为null则结束清理，遇到entry为空的值，清空数组位置，size--。非空的entry计算重哈希的位置。
+启发性清理：向后递归查找一个过期的位置，找到过期的位置触发探测性清理。
+扩容： 扩容后的tab的大小为oldLen * 2，然后遍历老的散列表，重新计算hash位置，然后放到新的tab数组中，
+
+在扩容、get和set的过程中遇到过期的键都会触发探测性清理。
+
 
 
 todo list

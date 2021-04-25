@@ -1,5 +1,28 @@
 线程相关
+退出线程的方法[Top]
+虚拟机级别的中断方式[Top]
+线程中使用一个静态的volatile的标志判断退出。
+调用Executors的submit方法，获取线程上下文对象Future，调用cancel方法。（注：无法中断正在试图获取synchronized锁或者试图执行I/O操作的线程）IO的中断，关闭底层资源之后，任务将解除阻塞。如socket连接，调用socket的close 或者 system.in 的输入连接调用in.close().
+调用ExecutorService的shutdown的方法。
+通过检查中断状态Thread.interrupted()，主动调用Thread的interrupt方法实现。（注意处理的时候，如果线程已经调用了interrupt()，如果再调用sleep方法，将抛出interruptException的异常）
+与Runnable相关: 主要是通过调用Thread.interrupt方法实现。
+与Callable相关：可以调用Future对象的cancel(true)方法。
+基于ReentrantLock[Top]
+ReentrantLock调用锁的lockInterruptibly()方法，
 
+1）lock(), 拿不到lock就不罢休，不然线程就一直block。 比较无赖的做法。
+2）tryLock()，马上返回，拿到lock就返回true，不然返回false。 比较潇洒的做法。 带时间限制的tryLock()，拿不到lock，就等一段时间，超时返回false。比较聪明的做法。
+3）lockInterruptibly()就稍微难理解一些。 先说说线程的打扰机制，每个线程都有一个 打扰 标志。这里分两种情况，
+线程在sleep或wait、join， 此时如果别的进程调用此进程的 interrupt（）方法，此线程会被唤醒并被要求处理InterruptedException；(thread在做IO操作时也可能有类似行为，见java thread api)
+此线程在运行中，则不会收到提醒。但是 此线程的 “打扰标志”会被设置， 可以通过isInterrupted()查看并 作出处理。
+结论：lockInterruptibly()和上面的第一种情况是一样的， 线程在请求lock并被阻塞时，如果被interrupt，则“此线程会被唤醒并被要求处理InterruptedException”。并且如果线程已经被interrupt，再使用lockInterruptibly的时候，此线程也会被要求处理interruptedException
+中断标志Interrupt[Top]
+中断一个线程，其本意是给这个线程一个通知信号，会影响这个线程内部的一个中断标识位。 这个线程本身并不会因此而改变状态(如阻塞，终止等)。
+
+调用 interrupt()方法并不会中断一个正在运行的线程。也就是说处于 Running 状态的线程并不会因为被中断而被终止，仅仅改变了内部维护的中断标识位而已。
+若调用 sleep()而使线程处于 TIMED-WATING 状态，这时调用 interrupt()方法，会抛出InterruptedException,从而使线程提前结束 TIMED-WATING 状态。
+许多声明抛出 InterruptedException 的方法，抛出异常前，都会清除中断标识位，所以抛出异常后，调用 isInterrupted()方法将会返回 false
+利用中断标识，可以调用 thread.interrupt()方法，在线程的 run 方法内部可以根据 thread.isInterrupted()的值来优雅的终止线程。
 
 
 

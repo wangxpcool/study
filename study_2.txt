@@ -94,10 +94,63 @@ TheadMap的key为weakReference包裹的threadLocal 因此会存在被jvm回收�
 在扩容、get和set的过程中遇到过期的键都会触发探测性清理。
 
 
+synchronized 的实现涉及到锁的升级，具体为无锁、偏向锁、自旋锁、向OS申请重量级锁????
+
+
+谈谈synchronized与ReentrantLock的区别？
+① 底层实现上来说，synchronized 是JVM层面的锁，是Java关键字，通过monitor对象来完成（monitorenter与monitorexit），对象只有在同步块或同步方法中才能调用wait/notify方法，ReentrantLock 是从jdk1.5以来（java.util.concurrent.locks.Lock）提供的API层面的锁。
+
+synchronized 的实现涉及到锁的升级，具体为无锁、偏向锁、自旋锁、向OS申请重量级锁，ReentrantLock实现则是通过利用CAS（CompareAndSwap）自旋机制保证线程操作的原子性和volatile保证数据可见性以实现锁的功能。
+② 是否可手动释放：
+
+synchronized 不需要用户去手动释放锁，synchronized 代码执行完后系统会自动让线程释放对锁的占用； ReentrantLock则需要用户去手动释放锁，如果没有手动释放锁，就可能导致死锁现象。一般通过lock()和unlock()方法配合try/finally语句块来完成，使用释放更加灵活。
+③ 是否可中断
+
+synchronized是不可中断类型的锁，除非加锁的代码中出现异常或正常执行完成； ReentrantLock则可以中断，可通过trylock(long timeout,TimeUnit unit)设置超时方法或者将lockInterruptibly()放到代码块中，调用interrupt方法进行中断。
+④ 是否公平锁
+
+synchronized为非公平锁 ReentrantLock则即可以选公平锁也可以选非公平锁，通过构造方法new ReentrantLock时传入boolean值进行选择，为空默认false非公平锁，true为公平锁。
+
+⑤ 锁是否可绑定条件Condition
+
+synchronized不能绑定； ReentrantLock通过绑定Condition结合await()/singal()方法实现线程的精确唤醒，而不是像synchronized通过Object类的wait()/notify()/notifyAll()方法要么随机唤醒一个线程要么唤醒全部线程。
+⑥ 锁的对象
+
+synchronzied锁的是对象，锁是保存在对象头里面的，根据对象头数据来标识是否有线程获得锁/争抢锁；ReentrantLock锁的是线程，根据进入的线程和int类型的state标识锁的获得/争抢。
+
+
+or  -----------------------
+与ReentrantLock区别[Top]
+synchronized是JVM层面的锁；ReentrantLock是JDK层面的锁，由java代码实现
+synchronized锁无法在代码中判断是否有所；ReentrantLock则可以通过【isLock()】判断是否获取到锁
+synchronized是一种非公平锁；ReentrantLock既可以实现公平锁，也可以实现非公平锁
+synchronized不可以被中断；ReentrantLock可以【lockInterruptibly】实现中断
+发生异常时，synchronized会自动释放锁，有javac实现；ReentrantLock需要开发者在finally中显式释放锁
+ReentrantLock在加锁时会更灵活，可以使用【tryLock】尝试获取锁，从而避免线程阻塞
+
+
+
+
+synchronize 的锁优化[Top]
+自旋锁[Top]
+自旋锁：对于锁状态很短的线程，挂起和恢复线程是开销很大的，因此让线程执行一个忙等待（自旋），这就是自旋锁的技术
+
+自适应锁[Top]
+自适应锁：自适应意味着自旋的时间不固定，由前一次在同一个锁上的自旋时间及锁的状态拥有者来决定。（如果之前自旋获得过锁，进而允许本次自旋更长时间。若很少成果获得锁，那么可能直接忽略跳过等待）
+
+锁消除[Top]
+执行的方法体所有数据都不会逃逸出去被其他线程访问到，认为是线程私有的，便可以消除锁。
+
+锁粗化[Top]
+同步块过于细化，导致多次获取锁，导致不必要的性能损耗，扩大锁的范围便可以解决这个问题。
+
+synchronize锁升级(锁膨胀)[Top]
+锁膨胀的方向：无锁->偏向锁->轻量级锁->重量级锁，并且膨胀方向不可逆。
+
 
 todo list
 
-
+ThreadLocal 用法
 创建线程的方式
 futureTask
 线程池的几种创建类型 fix s

@@ -226,6 +226,17 @@ like xx% 走索引，其他like 均不走索引
 垂直分表？水平   oracle垂直分区和水平分区？？？
 索引的类型
 
+oracle 分页
+select * from(
+    select A.*,rownum num from(
+       select * from t_order order by xxx)A
+    where rownum<=15)
+  where num>=5)
+为什么要使用三层嵌套，因为oracle先select 再 order by ，导致第一次查出来的rownum 会错乱，所以正确的第一次查询
+应该查询所有的值，包括order by 后面的
+
+
+
 todo list 
 
 juc

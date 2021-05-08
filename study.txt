@@ -278,14 +278,47 @@ List  双向链表 可用作消息队列
 Set  去重list  内部实现是一个 value永远为null的HashMap
 Sorted Set   有序set
 
+redis 实现分布式锁:
+redis 实现：
+setnx+lua，或者set key value px milliseconds nx
+- 释放锁（lua脚本中，一定要比较value，防止误解锁）
+if redis.call("get",KEYS[1]) == ARGV[1] then
+    return redis.call("del",KEYS[1])
+redisson实现：跟reetrantLock 很像
+	RLock lock1 = redissonClient1.getLock(resourceName);
+	RLock lock2 = redissonClient2.getLock(resourceName);
+	RLock lock3 = redissonClient3.getLock(resourceName);
+	// 向3个redis实例尝试加锁
+	RedissonRedLock redLock = new RedissonRedLock(lock1, lock2, lock3);
+	boolean isLock;
+	try {
+		// isLock = redLock.tryLock();
+		// 500ms拿不到锁, 就认为获取锁失败。10000ms即10s是锁失效时间。
+		isLock = redLock.tryLock(500, 10000, TimeUnit.MILLISECONDS);
+		System.out.println("isLock = "+isLock);
+		if (isLock) {
+			//TODO if get lock success, do something;
+		}
+	} catch (Exception e) {
+	} finally {
+		// 无论如何, 最后都要解锁
+		redLock.unlock();
+	}
+主从复制，就是每台机器都是一样的，这种部署方式每台服务器都会向主服务器同步自己的数据，所以其中的数据内容是相同的
 
+哨兵模式，就是一个特殊的主从复制模式，
+工作机制：让哨兵作为一个独立的进程，独立运行，通过其发送命令等待redis服务器响应，从而求监控运行的多个redis实例，当哨兵检测到master挂了的时候，就会让一个slave切换成master，通过发布订阅模式通知其他的从服务器，切换到这个新的master主机
+如果后期之前的master主机恢复了,那么哨兵就会让它作为一个slaver,继续使用之前的新的master
+
+Redis-Cluster集群，实现了redis的分布式存储，每个redis节点上存储了不同的内容
+工作机制：使用多台服务器构成一个集群，每个服务器存储了不同的信息，每个服务器的节点也给予了主从复制特特点，一个master（主节点），无数个slaver（从节点），
 
 todo list 
 
 juc
 sql 优化
 索引问题
-redis 实现分布式锁 主从，哨兵，集群
+
 todo list 
 分布式事务 我记得有分段式提交等
 

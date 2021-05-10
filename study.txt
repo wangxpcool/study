@@ -313,6 +313,13 @@ redisson实现：跟reetrantLock 很像
 Redis-Cluster集群，实现了redis的分布式存储，每个redis节点上存储了不同的内容
 工作机制：使用多台服务器构成一个集群，每个服务器存储了不同的信息，每个服务器的节点也给予了主从复制特特点，一个master（主节点），无数个slaver（从节点），
 
+LinkedeList和ArrayList的区别
+
+1、数据结构不同
+ArrayList是Array(动态数组)的数据结构，LinkedList是Link(链表)的数据结构。
+也就数据结构不同，用法基本差不多，所以也就只有数据结构的区别（数组链表，比如大小空间，插入删除性能
+
+
 todo list 
 
 juc

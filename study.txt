@@ -319,11 +319,35 @@ LinkedeList和ArrayList的区别
 ArrayList是Array(动态数组)的数据结构，LinkedList是Link(链表)的数据结构。
 也就数据结构不同，用法基本差不多，所以也就只有数据结构的区别（数组链表，比如大小空间，插入删除性能
 
+oracle 
+行转列 pivot
+select * from (select name, nums from demo) pivot (sum(nums) for name in ('苹果' 苹果, '橘子', '葡萄', '芒果'));
+decode
+列转行 unpivot
+select id , name, jidu, xiaoshou from Fruit unpivot (xiaoshou for jidu in (q1, q2, q3, q4) )
+union all 也可以
+拦截器过滤器区别
+
+拦截器（Interceptor）：
+拦截器是AOP的一种实现策略,也就是动态代理，它依赖于web框架，只能对controller请求方法进行拦截
+在调用方法前后或者抛异常的时候做操作
+
+过滤器(Filter)：它依赖于servlet容器。在实现上，基于函数回调，基于request请求的，可以做一些过滤操作。比如：修改字符编码，过滤字符等。
+
+foreach open close index item,separator,collection
+两台linux文件传输 scp xxx root@1.1.1.1: /xx/xx
+
+正向代理：是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理。
+反向代理：客户端发送请求给反向代理服务器，但是代理服务器上没有客户端需要的资源，代理服务器会判断转发到原始服务器获得资源，并把资源返回给客户端；在整个过程，客户端不知道自己访问的是一个代理服务器，而是一个原始服务器
+总结：正向代理代理的是客户端；反向代理代理的是服务器
 
 todo list 
-拦截器过滤器区别，列转行，foreach，beanfactory，nginx配置，两台linux文件传输，ribbon和feignclient 
+beanfactory，nginx配置，ribbon和feignclient 
 mongo elasticSearch 
 rabbitmq
+jstat 找问题
+
+总结完这个再搭一个springcloud cli
 juc
 sql 优化
 索引问题

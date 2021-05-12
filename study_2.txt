@@ -196,7 +196,22 @@ private static void QuickSort(int[] num, int left, int right) {
         QuickSort(num,i+1,right);
     }
 
+static ListNode reverseList(ListNode head) {
+        ListNode newHead = null;
+        ListNode  node;
+        while (head != null) {
+            //1. 对之前的链表做头删
+            node = head;
+            head = head.getNode();
 
+            //2. 对新链表做头插
+            node.setNode( newHead);
+            newHead = node;
+        }
+        return newHead;
+    }
+	
+	
 todo list
 
 ThreadLocal 用法

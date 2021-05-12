@@ -341,8 +341,22 @@ foreach open close index item,separator,collection
 反向代理：客户端发送请求给反向代理服务器，但是代理服务器上没有客户端需要的资源，代理服务器会判断转发到原始服务器获得资源，并把资源返回给客户端；在整个过程，客户端不知道自己访问的是一个代理服务器，而是一个原始服务器
 总结：正向代理代理的是客户端；反向代理代理的是服务器
 
+一致性哈希算法是一种特殊的哈希算法，在移除或者添加一个服务器时，能够尽可能小地改变已存在的服务请求与处理请求服务器之间的映射关系
+
+hystrix 主要是当前服务崩掉的时候，能够快速失败，并返回给调用端，然后通过ribbon机制，近期不再调用本服务，转移至其他可用的服务
+，直到服务恢复。
+
+springcloud五大组件：
+1、Eureka实现服务治理；
+2、Ribbon主要提供客户侧的软件负载均衡算法；
+3、Hystrix断路器，保护系统，控制故障范围；
+4、Zuul，api网关，路由，负载均衡等多种作用；
+5、Config配置管理。
+
+feignClient 服务之间的相互调用
+
 todo list 
-beanfactory，nginx配置，ribbon和feignclient 
+beanfactory，nginx配置，ribbon和feignclient hystrix springcloud五大组件，生态圈
 mongo elasticSearch 
 rabbitmq
 jstat 找问题

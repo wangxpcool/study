@@ -214,7 +214,30 @@ static ListNode reverseList(ListNode head) {
         return newHead;
     }
 	
-	
+Volatile一般情况下不能代替sychronized，因为volatile不能保证操作的原子性，即使只是i++，实际上也是由多个原子操作组成：read i; inc; write i，假如多个线程同时执行i++，volatile只能保证他们操作的i是同一块内存，
+
+springboot 读取外部配置文件
+@Configuration
+@ConfigurationProperties(prefix = "remote", ignoreUnknownFields = false)
+@PropertySource("classpath:config/remote.properties")
+@Data
+@Component
+public class RemoteProperties {
+  private String uploadFilesUrl;
+  private String uploadPicUrl;
+}
+
+Java NIO 由以下几个核心部分组成：
+
+Channels 通道
+Buffers	缓存
+Selectors	选择器
+
+Nginx工作原理
+master-workers
+Nginx接收到发来的请求由master管理，worker进行争抢式的方式去获取请求
+
+
 todo list
 
 ThreadLocal 用法

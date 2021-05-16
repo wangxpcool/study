@@ -122,5 +122,5 @@ node.data = node.next.data;
 node.next = node.next.next;
 
 
-hashmap 时间复杂度O(1)  最坏是O(n) 即所有节点都存在hash冲突时，分配的位置都在链表里。
+
 

@@ -1,0 +1,3 @@
+int 字节，范围，float?
+
+zp npayutil 类对象锁 final inteface

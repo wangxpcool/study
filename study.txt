@@ -374,6 +374,17 @@ emmmmm
 1. 每一个结点要么是红色，要么是黑色。
 每次插入删除都能在三次旋转内恢复平衡。
 
+hashmap 时间复杂度O(1)  最坏是O(n) 即所有节点都存在hash冲突时，分配的位置都在链表里。
+
+Spring中的@ Component，@ Repository和@Service注释有什么区别？
+都是基于@Component的组件，区别只在于使用场景上，比如@Service更适合业务逻辑层，Repository更适合持久层（db-mapper）
+
+Spring 注释 @Autowired 和@Resource 的区别
+@Autowired和@Resource都可以用来装配bean，都可以写在字段上，或者方法上。
+@Autowired属于Spring的；@Resource为JSR-250标准的注释，属于J2EE的。
+@Autowired byType @Resource byName
+
+
 todo list 
 beanfactory，nginx配置，ribbon和feignclient hystrix springcloud五大组件，生态圈
 mongo elasticSearch 
@@ -381,6 +392,8 @@ rabbitmq
 jstat 找问题
 
 总结完这个再搭一个springcloud cli
+dubbo zookeeper(基于Netty)
+
 juc
 sql 优化
 索引问题

@@ -113,3 +113,14 @@ public class quickSortTest {
 
 
 }
+
+一些算法题
+给定链表的头指针和一个结点指针，在 O(1)时间删除该结点。不删除头尾结点 typedef struct LNode{ int data; LNode *next; }LNode, *List;
+
+查了一下，方法是将下一个结点的值赋给当前结点，然后删除下一个结点，就相当于删除了当前节点。简直是妙蛙种子吃了妙脆角进了米奇妙妙屋，妙到家了。
+node.data = node.next.data;
+node.next = node.next.next;
+
+
+
+

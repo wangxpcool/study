@@ -12,3 +12,27 @@ spring security ,spring boot 加载机制
 redis
 
 未学习的+面试需要的
+
+
+
+结论:在重写了equals方法后，强制要求重写hashCode方法
+
+如果两个对象相等，那么他们必须有相同的hashCode
+如果两个对象有相同的hashCode,并不意味着他们相等
+单独重写equals方法会让业务中使用哈希数据结构的数据失效，如HashMap,HashSet,HashTable…
+
+==对比的是堆中的值///666
+
+抽象类和接口区别
+
+抽象类可以存在普通成员函数，⽽接⼝中只能存在public abstract ⽅法。 可以实现函数
+抽象类中的成员变量可以是各种类型的，⽽接⼝中的成员变量只能是public static final类型的。  可以设置变量  接口只能final static 
+抽象类只能继承⼀个，接⼝可以实现多个  接口实现多继承
+
+
+GC流程
+
+
+
+
+

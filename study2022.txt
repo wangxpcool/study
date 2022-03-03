@@ -25,9 +25,9 @@ redis
 
 抽象类和接口区别
 
-抽象类可以存在普通成员函数，⽽接⼝中只能存在public abstract ⽅法。 可以实现函数
-抽象类中的成员变量可以是各种类型的，⽽接⼝中的成员变量只能是public static final类型的。  可以设置变量  接口只能final static 
-抽象类只能继承⼀个，接⼝可以实现多个  接口实现多继承
+抽象类可以存在普通成员函数，⽽接⼝中只能存在public abstract ⽅法。 //抽象类可以实现函数
+抽象类中的成员变量可以是各种类型的，⽽接⼝中的成员变量只能是public static final类型的。  //抽象类可以设置任意变量  接口只能默认final static 
+抽象类只能继承⼀个，接⼝可以实现多个  //接口实现多继承
 
 
 GC流程
@@ -46,3 +46,4 @@ Spring Boot 的@springBootApplication 包含@EnableAutoConfiguration
 
 
 行锁，列锁？
+泛型

@@ -33,6 +33,9 @@ redis
 GC流程
 
 
+debugger 中加条件，和赋值（添加evaluate expression）
+
+
 
 
 

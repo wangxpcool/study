@@ -47,3 +47,71 @@ Spring Boot 的@springBootApplication 包含@EnableAutoConfiguration
 
 行锁，列锁？
 泛型
+
+
+spring 事务失效场景
+1 抛出检查性异常，比如通过throw xxxException 时，事务不会回滚；解决方式:@transaction(rollbackfor = Exception.class)
+2 未抛出异常时，比如通过catch住了 xxxException 时，事务不会回滚；解决方式:抛出异常 throw new RuntimeException
+3 AOP切面捕捕获盗了异常  解决方式同上，也可设置AOP执行顺序
+4 默认情况下@transactionl 必须指定在公有方法上，@public   ; 
+5 父子容器时，@transactionl 未跟方法在同一个容器（一般不会存在两个容器）
+6 传播行为时，当前对象并非实际对象而是代理对象，
+7 多线程下@transactionl 加锁时，不能保证commit也加锁了，需要在commit后加锁
+8 数据库事务原子性包括增删改但是不包括查select ，需要加上select for update时事务才会生效
+AopContext.currentPoxy()  得到当前代理对象
+
+反射  事务的传播机制require and requires_new
+coundownlatch .await 
+
+ctrl f12 
+
+spring set注入时，通过三级缓存避免循环依赖，一二级缓存能在创建实例时，缓存新实例，三级缓存判断是否含有循环依赖来判断是否返回代理对象
+（三级缓存解决了循环的<代理>对象
+构造方式注入时，三级缓存无效，解决的两种方式，@Lazy 或者@ObjectFactory<myObject> myObject 等方法来延缓对象创建
+
+
+
+
+
+当前急迫
+粗略了解dubbo zookeeper  链路追踪？
+oracle   netty  mq 
+nacos?
+接下来学习
+
+elasticsearch 
+log mongodb
+并发编程
+分布式事务
+nginx
+异步处理、服务解耦、流量控制（削峰）。
+
+一边面试一边总结
+
+1、为什么要创建线程池？
+
+2、创建线程池有哪些方式？
+
+3、Executors能创建几种常用线程池？
+
+4、线程池有哪些参数？
+
+5，能说说线程池原理吗？
+
+6、线程池有哪些拒绝策略？
+
+7、线程池中使用到了阻塞队列，那你知道有哪些阻塞队列？
+
+8、线程池中的核心线程如何设置呢？
+
+9、知道线程池有哪些状态吗？
+
+10、线程池中的线程是如何复用的？
+
+11、Java线程池中submit() 和 execute()方法有什么区别？
+
+12、在工作中，有使用过线程池吗？
+
+
+
+

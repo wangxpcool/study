@@ -409,6 +409,7 @@ springboot 自动装配原理
 merge into 
 
 服务选举机制。。。
+初始阶段按编号id来进行投票，后续leader宕机后，按数据id(xid)来进行投票
 
 netty?
 nio及相关

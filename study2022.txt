@@ -1,5 +1,35 @@
 
+传播行为
 
+意义
+
+PROPERGATION_MANDATORY
+
+表示方法必须运行在一个事务中，如果当前事务不存在，就抛出异常
+
+PROPAGATION_NESTED
+
+表示如果当前事务存在，则方法应该运行在一个嵌套事务中。否则，它看起来和 PROPAGATION_REQUIRED 看起来没什么俩样
+
+PROPAGATION_NEVER
+
+表示方法不能运行在一个事务中，否则抛出异常
+
+PROPAGATION_NOT_SUPPORTED
+
+表示方法不能运行在一个事务中，如果当前存在一个事务，则该方法将被挂起
+
+PROPAGATION_REQUIRED
+
+表示当前方法必须运行在一个事务中，如果当前存在一个事务，那么该方法运行在这个事务中，否则，将创建一个新的事务
+
+PROPAGATION_REQUIRES_NEW
+
+表示当前方法必须运行在自己的事务中，如果当前存在一个事务，那么这个事务将在该方法运行期间被挂起
+
+PROPAGATION_SUPPORTS
+
+表示当前方法不需要运行在一个是事务中，但如果有一个事务已经存在，该方法也可以运行在这个事务中
 
 undo 
 
@@ -7,6 +37,9 @@ dubbo  zookeeper  docker  微服务链路追踪？
 
 spring security ,spring boot 加载机制
 
+1、finally块一定会执行，无论是否try…catch。
+2、finally前有return，会先执行return语句，并保存下来，再执行finally块，最后return。
+3、finally前有return、finally块中也有return，先执行前面的return，保存下来，再执行finally的return，覆盖之前的结果，并返回。
 
 
 redis
@@ -85,6 +118,7 @@ log mongodb
 分布式事务
 nginx
 异步处理、服务解耦、流量控制（削峰）。
+实现反射
 
 
 
@@ -140,16 +174,6 @@ jvm 调优 优先队列 归并排序  单例模式 实现
 redis io 多路复用
 
 
-
-
-
-202203014 花旗外包
-
-springmvc 父子容器  
-
-
-spring父容器，mvc子容器
-
 为了结构层次清晰
 
 父容器和子容器是相互隔离的，他们内部可以存在名称相同的bean
@@ -159,6 +183,14 @@ spring父容器，mvc子容器
 调用子容器的getBean方法获取bean的时候，会沿着当前容器开始向上面的容器进行查找，直到找到对应的bean为止
 
 子容器中可以通过任何注入方式注入父容器中的bean，而父容器中是无法注入子容器中的bean，
+
+
+202203014 花旗外包
+
+springmvc 父子容器  
+
+
+spring父容器，mvc子容器
 
 
 jdk 实现 和 cglib
@@ -183,3 +215,27 @@ redis
 内存不够时
 雪崩穿透时策略
 缓存淘汰策略
+
+
+i++ 
+synchronized 原理
+responsebody 过程
+
+
+
+synchronized 原理
+对对象锁时，每个对象有一个监视器monitor,进入锁+1 ，再次进入再+1，锁释放后-1
+对方法锁时，因为方法存在于栈区，只拥有一个，此时由方法里面的ACC_SYNCHRONIZED标记来判断
+
+
+
+
+
+
+
+
+
+
+
+
+

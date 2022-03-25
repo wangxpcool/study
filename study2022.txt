@@ -179,6 +179,16 @@ cms 和g1 区别--------------------------------------------waiting
 
 垃圾回收器  g1  cms parallel
 
+CMS（Concurrent Mark Sweep）
+支持并发收集
+以最小的停顿时间为目标的收集器。
+适合老年代
+
+G1收集器
+最主要的采用分区的概念，分成多个region,分别处理
+适合各个阶段的gc
+G1收集器可预测垃圾回收的停顿时间（建立可预测的停顿时间模型）
+
 redis io 多路复用
 
 有空再看下这个asyncExecutors
@@ -247,5 +257,27 @@ synchronized 原理
 对对象锁时，每个对象有一个监视器monitor,进入锁+1 ，再次进入再+1，锁释放后-1
 对方法锁时，因为方法存在于栈区，只拥有一个，此时由方法里面的ACC_SYNCHRONIZED标记来判断
 
+redission 锁原理：setnx lua机制保证原子性；问锁超时：对锁延时，
+linux swap分区， cpu负载时怎么排查 ，redis 锁超时问题，spring bean自定义初始化方法。
+cpu负载时怎么排查
+top 命令查看cpu使用情况并定位到进程id ,再使用jstack 打印线程dump信息，定位到堆栈信息。
+
+测试一下是否循环依赖
 
 
+
+
+
+
+
+
+
+
+
+
+hello everyone ,its my honor to be here today
+here is my brief introduction of myself, i graduated from  Huaiyin Institute of Technology college in jiangsu  , and very loved to learn  algorithm coding  in college. in twenty-sixteen i started my  internship on java. Later, I  started to learn how to use Spring cloud  Microservice Technology . At present, I know a lot about Technical framework such as eureka,gateway,open feigh,Hystrix and so on
+
+I also discuss and learn some interesting algorithms or technologies with my friends as usual.  visit some interesting  websites which beyond the great firewall of china for example: v2ex, github, stackoverflow,
+I position myself as an Competent [ˈkɑːmpɪtənt]  java engineer and can be responsible for any  completed java projects. 
+thanks 

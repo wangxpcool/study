@@ -137,6 +137,11 @@ nginx
 5，能说说线程池原理吗？
 
 6、线程池有哪些拒绝策略？
+1	ThreadPoolExecutor.AbortPolicy	默认拒绝策略，拒绝任务并抛出任务
+2	ThreadPoolExecutor.CallerRunsPolicy	使用调用线程直接运行任务
+3	ThreadPoolExecutor.DiscardPolicy	直接拒绝任务，不抛出错误
+4	ThreadPoolExecutor.DiscardOldestPolicy	触发拒绝策略，只要还有任务新增，一直会丢弃阻塞队列的最老的任务，并将新的任务加入
+
 
 7、线程池中使用到了阻塞队列，那你知道有哪些阻塞队列？
 
@@ -246,7 +251,7 @@ redis
 内存不够时
 雪崩穿透时策略
 缓存淘汰策略
-
+1先进先出 2 按时间顺序 3 按访问次数最小
 
 
 i++ 

@@ -103,7 +103,10 @@ spring set注入时，通过三级缓存避免循环依赖，一二级缓存能�
 构造方式注入时，三级缓存无效，解决的两种方式，@Lazy 或者@ObjectFactory<myObject> myObject 等方法来延缓对象创建
 
 
-
+mybatis一二级缓存
+一级缓存是针对SqlSession的
+2级缓存是针对SqlSessionFactory的，可在多个SqlSession通过mapper共享
+不建议开启二级缓存
 
 
 当前急迫
@@ -296,6 +299,52 @@ B+树
 只要遍历叶子节点就可以实现整棵树的遍历
 B树：有序数组+平衡多叉树； 
 B+树：有序数组链表+平衡多叉树；
+
+
+兴业银行托管通项目，项目业务上是兴业银行与各机构合作产品的管理平台，各个机构会通过我们平台来处理相关业务，
+主要包括流水和指令两块，流水这边主要是查询相关，生成报表，指令这块也有查询，和处理些转账相关业务
+流水查询业务并发量最高每秒超过100次通信
+技术上来看，采用普通微服务架构，常用组件都会有，
+微服务切分为file,product,insrtust,quartz,user,其他的基础服务比如gateway
+网关校验？？？？？
+security流程???
+,uaa,eureka
+redis是三台主从结构和哨兵机制
+25台物理机
+
+
+统一处理异常
+自定义继承自runtimeException的异常类
+
+添加一个全局切面
+@ControllerAdvice
+并处理异常
+@ExceptionHandler(MsException.class)
+
+
+第一级缓存：也叫单例池，存放已经经历了完整生命周期的Bean对象。
+
+第二级缓存：存放早期暴露出来的Bean对象，实例化以后，就把对象放到这个Map中。（Bean可能只经过实例化，属性还未填充）。
+
+第三级缓存：存放早期暴露的Bean的工厂。
+
+sql优化
+spring生命周期
+springsecurity
+spring里面常见的设计模式
+
+jdk1.8 新特性
+接口的默认方法(Default Methods for Interfaces)
+Formula formula = new Formula() {
+        @Override
+        public double calculate(int a) {
+            return sqrt(a * 100);
+        }
+    };
+新日期工具
+steam流api
+数据结构优化，hashmap concurrentHashMap
+
 
 
 hello everyone ,its my honor to be here today

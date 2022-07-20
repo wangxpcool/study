@@ -345,6 +345,10 @@ Formula formula = new Formula() {
 steam流api
 数据结构优化，hashmap concurrentHashMap
 
+static 作用
+修饰方法	静态方法存在于静态方法区，常用于工具类方法
+修饰变量	变量只有一个副本，被所有的对象所共享
+修饰代码块 类加载时执行仅一次
 
 
 hello everyone ,its my honor to be here today

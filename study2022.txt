@@ -249,6 +249,17 @@ ConcurrentLinkedQueue 	无锁且线程安全，那么考虑cas,队列性质，�
 
 aqs
 常量池  基本数据类型，字符串，final常量，引用
+202203014 花旗外包
+Static 关键字
+Lambda map filter
+Oracle Listagg
+泛型时怎么定义父类子类
+介绍Threadlocal
+Map的entryset
+保证三个线程的执行顺序
+解释下Thread.join
+
+
 
 redis 
 内存不够时
@@ -349,6 +360,15 @@ static 作用
 修饰方法	静态方法存在于静态方法区，常用于工具类方法
 修饰变量	变量只有一个副本，被所有的对象所共享
 修饰代码块 类加载时执行仅一次
+
+大数据表怎么办
+join on where 
+有遇到过锁表的时候
+
+jvm 
+jmp 导出堆快照
+总结一下网关的作用
+
 
 
 hello everyone ,its my honor to be here today

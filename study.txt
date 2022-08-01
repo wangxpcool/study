@@ -58,6 +58,7 @@ HandlerAdapter 会根据 Handler 来调用真正的处理器来处理请求，�
 ViewResolver 会根据逻辑 View 查找实际的 View。
 DispatcherServlet 把返回的 Model 传给 View Resolver（视图渲染）。
 把 View 返回给请求者（浏览器）
+如果添加了@responseBody注解的话，返回的ModelAndView为null,此时会直接使用消息转换器HttpMessageConverter处理数据返回给前端
 
 spring中的设计模式[Top]
 工厂设计模式 : Spring使用工厂模式通过 BeanFactory、ApplicationContext 创建 bean 对象。

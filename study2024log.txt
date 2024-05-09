@@ -1,0 +1,25 @@
+spring bean的生命周期
+redisson实现 分布式锁
+
+有空再实现一下Apollo  xxljob
+
+怎么去实现多数据源
+
+websoket
+http的返回值
+
+设计模式的状态模式
+spring 事件发布
+
+
+
+线程池状态
+java模板 工厂设计模式 
+模板策略
+
+整理下自我介绍 和项目
+
+数据库
+
+interrupt
+

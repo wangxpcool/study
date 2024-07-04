@@ -22,4 +22,70 @@ java模板 工厂设计模式
 数据库
 
 interrupt
+事务失效场景 索引失效场景
 
+tidb
+
+单例模式
+懒汉
+系统一开始就创建
+饿汉
+调用时才创建
+双检锁
+使用valitale关键字 保证创建时线程安全
+静态内部类
+//使用静态内部类实现单例模式--线程安全
+class SingletonStaticInner {
+	private SingletonStaticInner() {
+		
+	}
+	private static class SingletonInner {
+		private static SingletonStaticInner singletonStaticInner = new SingletonStaticInner();
+	}
+	public static SingletonStaticInner getInstance() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return SingletonInner.singletonStaticInner;
+	}
+}
+调用内部类时才会创建内部类的实例
+
+统一处理异常
+自定义继承自runtimeException的异常类
+
+
+
+你好我叫王学平，四川南充人，17年毕业于江苏淮阴工学院，大学专业是计算机科学与技术，
+16年开始在上海实习java开发，毕业后一直从事java开发工作，最近一份工作是负责汇添富基金的固收投管项目的维护与开发
+这边业务上都是基于公司固收产品的管理和流程操作。比如之前负责的国债冲抵期货保证金业务
+技术上的话，使用的常规的spring cloud体系架构，多数据源，主要使用的还是oracle
+
+
+hashmap put方法
+
+innodb 底层数据结构
+
+
+分布式事务  三段提交 
+
+分布式锁  业务超时后，锁失效了咋办
+
+
+
+精通一下数据库 
+Java内存分析工具MAT(Memory Analyzer Tool)
+
+把知识点自成体系 ，增加表达能力
+
+
+先看下这个pdf 总统的看一遍，然后再深入一些其他陌生点的东西比如 没遇到的，源码，mq,
+
+复习下 设计模式的  数据库底层
+
+数据库分库分表 
+
+mysql 索引下推

@@ -55,7 +55,8 @@ ArrayBlockingQueue是一个有界缓存等待队列，可以指定缓存队列�
 ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。 ThreadPoolExecutor.DiscardPolicy：丢弃任务，但是不抛出异常。 ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新提交被拒绝的任务 ThreadPoolExecutor.CallerRunsPolicy：由调用线程（提交任务的线程）处理该任务
 
 有空再来实现一下
-
+线程池参数 核心线程数 最大线程数 任务队列 等待时间 时间单位 线程工厂  拒绝策略
+工作流程：先使用核心线程数  再使用任务队列，当两者满了的时候，再使用最大线程数
 
 
 线程池相关方法[Top]

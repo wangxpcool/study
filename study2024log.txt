@@ -263,3 +263,15 @@ IPV6升级
 
 sudo apt update
 sudo apt install default-jdk
+
+
+Hadoop 
+用来存储日志文件，并分析统计用户ip和访问次数或者热门接口
+首先将文件存入HDFS中，
+MapReduce过程：
+map
+Map 阶段将日志文件按行读取，提取出每行日志中的 IP 地址，并将其作为 key，把访问次数（默认为1）作为 value
+Reduce 阶段将 Map 阶段输出的相同 IP 地址进行聚合，计算出每个 IP 地址的访问总次数。
+通过hdfs dfs -cat 命令就能看到结果。
+但是系统没采用这个方案，最终选择了落库存表，并定时删除一个月前的数据。
+所以说，还是业务得放在首位。技术服务于业务嘛

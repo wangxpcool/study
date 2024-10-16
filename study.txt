@@ -349,7 +349,7 @@ union all 也可以
 拦截器是AOP的一种实现策略,也就是动态代理，它依赖于web框架，只能对controller请求方法进行拦截
 在调用方法前后或者抛异常的时候做操作
 
-过滤器(Filter)：它依赖于servlet容器。在实现上，基于函数回调，基于request请求的，可以做一些过滤操作。比如：修改字符编码，过滤字符等。
+过滤器(Filter)：它依赖于servlet容器。在实现上，基于函数回调，基于request请求的，可以做一些过滤操作。比如：统一字符编码，过滤字符等。
 
 foreach open close index item,separator,collection
 两台linux文件传输 scp xxx root@1.1.1.1: /xx/xx

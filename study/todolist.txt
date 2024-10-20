@@ -1,0 +1,103 @@
+todolist
+
+复习的知识
+
+
+需新学习的知识
+
+
+面试复盘
+
+压测 明天再研究
+空了再研究下服务熔断的具体情景
+
+复习下springsecurity
+docker 重装下一些软件 mysql 等
+arthas
+
+异步处理用户发起的查询任务，将查询任务放置后台，并根据相应的优
+先级来配合资源调度
+这个后面再想想 细节
+再想想kafka实现细节
+es的一些面试问题
+
+{"registry-mirrors": ["https://docker.m.daocloud.io/"]}
+
+
+
+{
+  "registry-mirrors": [
+    "https://mirror.gcr.io",
+    "https://docker.registry.cyou",
+    "https://docker-cf.registry.cyou",
+    "https://dockercf.jsdelivr.fyi",
+    "https://docker.jsdelivr.fyi",
+    "https://dockertest.jsdelivr.fyi",
+    "https://mirror.aliyuncs.com",
+    "https://dockerproxy.com",
+    "https://mirror.baidubce.com",
+    "https://docker.m.daocloud.io",
+    "https://docker.nju.edu.cn",
+    "https://docker.mirrors.sjtug.sjtu.edu.cn"
+  ]
+}
+{
+    "registry-mirrors": [
+        "https://dockerproxy.cn",
+        "https://docker.rainbond.cc",
+        "https://docker.udayun.com",
+        "https://docker.211678.top"
+    ]
+}
+
+
+{
+    "registry-mirrors": ["https://docker.211678.top"]
+}
+
+
+sudo docker cp mysql:/etc/mysql ~/docker/mysql/config
+sudo docker cp mysql:/var/lib/mysql ~/docker/mysql/data
+mkdir -p ~/docker/mysql/logs/error/
+touch ~/docker/mysql/logs/error/error_log.log
+
+vim ~/docker/mysql/config/my.cnf
+
+
+event source
+
+
+
+# 使用官方的Java基础镜像
+FROM openjdk:8-jdk-alpine
+ 
+# 设置工作目录
+WORKDIR /app
+ 
+# 将jar包复制到容器中
+COPY tushare-0.0.1-SNAPSHOT.jar /app/app.jar
+ 
+# 暴露应用程序的端口
+EXPOSE 8080
+ 
+# 运行jar包
+CMD ["java", "-jar", "app.jar"]
+
+
+
+docker build -t tushare:1.0 .
+docker run -p 9999:9999 -d --restart=always tushare:1.0
+
+
+g1 full gc 
+
+
+稍微学学python 
+爬个东西
+
+
+
+
+观看小王子
+
+

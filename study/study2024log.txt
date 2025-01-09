@@ -100,20 +100,14 @@ mysql 索引下推
 看看 spring  mq 设计模式 算法
 
 
-sudo docker run -d --name wekan -p 3010:8080  wekanteam/wekan
-netsh winsock reset
-
-
 spring三级缓存 
-
-
 
 
 得看看消息队列视频了
 
 jvm监控  
 
-父子类的执行顺序 静态变量 代码块，构造函数 
+父子类的执行顺序 静态变量 静态代码块，构造函数 
 泛型  面试问题
 
 
@@ -249,8 +243,6 @@ Reduce 阶段将 Map 阶段输出的相同 IP 地址进行聚合，计算出每�
 使用redission创建布隆过滤器，
 参数分别为：过滤器名称，预期元素数量，误差率
 init方法
-
-
 
 sql 
 并集 union

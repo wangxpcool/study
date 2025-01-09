@@ -271,7 +271,10 @@ Map的entryset
 保证三个线程的执行顺序
 解释下Thread.join
 
-
+Oracle Listagg
+SELECT emp_dept, LISTAGG(emp_name, ', ') WITHIN GROUP (ORDER BY emp_name) AS employees
+FROM employee
+使用LISTAGG函数来将每个部门的员工姓名合并为一个字符串
 
 redis 
 内存不够时
